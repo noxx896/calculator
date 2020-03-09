@@ -1,4 +1,42 @@
+body {
+    background-color: brown;
+}
+
+button {
+    font-size: 2rem;
+}
 #buttons {
     display: grid;
     grid-template-columns: auto auto auto auto;
+    padding: 1rem;
 }
+
+#zero {
+    grid-column: 1 / span 2;
+    grid-row: 5;
+}
+
+#equal {
+    grid-column: 4;
+    grid-row: 4 / span 5;
+}
+
+#container {
+    height: 25rem;
+    width: 30rem;
+    background-color: cadetblue;
+    padding: 2rem;
+    margin: auto;
+}
+
+#screen {
+    height: 5rem;
+    width: 23rem;
+    background-color: cornsilk;
+    border-radius: 1rem;
+    margin: auto;
+}
+
+* {
+    box-sizing: border-box;
+  }
