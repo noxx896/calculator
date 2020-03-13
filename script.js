@@ -1,5 +1,4 @@
-let operand_1 = "";
-let operand__2 = "";
+let operantion = "";
 let screen = document.getElementById("screen");
 let flag = false;
 
@@ -15,16 +14,24 @@ numbers.forEach(element => {
 
 //===== OPERANDS ===============================
 let add = document.getElementById("add");
-add.addEventListener("click", show);
+add.addEventListener("click", () => {
+    saveNumbers("+");
+});
 
 let substract = document.getElementById("substract");
-substract.addEventListener("click", show);
+substract.addEventListener("click", () => {
+    saveNumbers("-");
+});
 
 let multiply = document.getElementById("multiply");
-multiply.addEventListener("click", show);
+multiply.addEventListener("click", () => {
+    saveNumbers("x");
+});
 
 let divide = document.getElementById("divide");
-divide.addEventListener("click",  show);
+divide.addEventListener("click", () => {
+    saveNumbers("/");
+});
 //==============================================
 
 //===== OTHERS =================================
@@ -35,18 +42,23 @@ let erase = document.getElementById("erase");
 erase.addEventListener("click",  show);
 
 let equal = document.getElementById("equal");
-equal.addEventListener("click", show);
+equal.addEventListener("click", showResult);
 //==============================================
 
 //===== OPERATIONS =============================
-function saveNumbers(number) {
-        screen.textContent += number.toString();
+function saveNumbers(a) {
+        screen.textContent += a.toString();
+        operantion += a.toString();
 }
-function addNumbers(e) {
+function clearAll() {
     screen.textContent += "Works 2";
 }
 
-function show() {
-    screen.textContent += a;
+function showResult() {
+    do {
+        for(i = 0; i < operantion.length; i++) {
+            
+        }
+    }while(isNaN(operantion));
 }
 //==============================================
