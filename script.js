@@ -1,4 +1,4 @@
-let operantion = "";
+let operation = "";
 let screen = document.getElementById("screen");
 let flag = false;
 
@@ -7,7 +7,7 @@ let flag = false;
 let numbers = ["zero", "1", "2", "3", "4", "5", "6", "7", "8", "9", "dot"];
 numbers.forEach(element => {
     document.getElementById(element).addEventListener("click", () => {
-        saveNumbers(element);
+        saveNumbers(document.getElementById(element).textContent);
     })
 })
 //==============================================
@@ -39,7 +39,7 @@ let clear = document.getElementById("clear");
 clear.addEventListener("click", show);
 
 let erase = document.getElementById("erase");
-erase.addEventListener("click",  show);
+erase.addEventListener("click",  deleteNumber);
 
 let equal = document.getElementById("equal");
 equal.addEventListener("click", showResult);
@@ -48,10 +48,17 @@ equal.addEventListener("click", showResult);
 //===== OPERATIONS =============================
 function saveNumbers(a) {
         screen.textContent += a.toString();
-        operantion += a.toString();
+        operation += a.toString();
 }
 function clearAll() {
     screen.textContent += "Works 2";
+}
+function deleteNumber() {
+    operation = operation.slice(0, -1);
+    screen.textContent = operation;
+}
+function show() {
+    screen.textContent += "show";
 }
 
 function showResult() {
