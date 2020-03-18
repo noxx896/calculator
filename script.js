@@ -1,6 +1,5 @@
 let operation = "";
 let screen = document.getElementById("screen");
-let flag = false;
 
 
 //===== NUMBERS =================================
@@ -36,7 +35,7 @@ divide.addEventListener("click", () => {
 
 //===== OTHERS =================================
 let clear = document.getElementById("clear");
-clear.addEventListener("click", show);
+clear.addEventListener("click", clearAll);
 
 let erase = document.getElementById("erase");
 erase.addEventListener("click",  deleteNumber);
@@ -47,25 +46,59 @@ equal.addEventListener("click", showResult);
 
 //===== OPERATIONS =============================
 function saveNumbers(a) {
-        screen.textContent += a.toString();
-        operation += a.toString();
+        screen.textContent += a;
+        operation += a;
 }
 function clearAll() {
-    screen.textContent += "Works 2";
+    operation = "";
+    screen.textContent = "";
 }
 function deleteNumber() {
     operation = operation.slice(0, -1);
     screen.textContent = operation;
 }
-function show() {
-    screen.textContent += "show";
-}
-
 function showResult() {
-    do {
-        for(i = 0; i < operantion.length; i++) {
-            
+    let expression = [];
+    let aux = "";
+    let flag = true;
+    for(i = 0; i < operation.length; i++) { // loop to separate numbers and math expressions
+        if(operation[i] != "+" && operation[i] != "-" && operation[i] != "/" && operation[i] != "x") {
+            aux += operation[i];
+        }else {
+            expression.push(aux);
+            expression.push(operation[i]);
+            aux = "";
         }
-    }while(isNaN(operantion));
+    }
+    expression.push(aux);
+
+    for(i = 0; i < expression.length; i++) { // loop to show if the input expression is invalid
+        if(expression[i] == "") return console.log("Syntax error");
+    }
+    console.log(expression);
+
+    do {
+        /*expression.forEach(function(item) {
+            if(item == "x") {
+                expression[expression.indexOf("x")] = expression[expression.indexOf("x")-1]*expression[expression.indexOf("x")+1];
+               // expression.splice(expression.indexOf("x")-1, 1);
+                //expression.splice(expression.indexOf("x")+1, 1);
+            }else if(item == "/") {
+                expression[expression.indexOf("/")] = expression[expression.indexOf("/")-1]/expression[expression.indexOf("/")+1];
+               // expression.splice(expression.indexOf("/")-1, 1);
+               // expression.splice(expression.indexOf("/")+1, 1);
+            }else flag = false;
+        }
+        )*/
+        let a = 0;
+        expression[expression.indexOf("x")] = expression[expression.indexOf("x")-1]*expression[expression.indexOf("x")+1];
+        a = expression.indexOf("x");
+        expression.splice(a-1, 1);
+        expression.splice(a+1, 1);
+        if(expression.indexOf("x") == -1) flag = false;
+
+    }while(flag)
+
+    console.log(expression);
 }
 //==============================================
