@@ -61,6 +61,7 @@ function showResult() {
     let expression = [];
     let aux = "";
     let flag = true;
+    let result = 0;
     for(i = 0; i < operation.length; i++) { // loop to separate numbers and math expressions
         if(operation[i] != "+" && operation[i] != "-" && operation[i] != "/" && operation[i] != "x") {
             aux += operation[i];
@@ -77,28 +78,70 @@ function showResult() {
     }
     console.log(expression);
 
-    do {
-        /*expression.forEach(function(item) {
-            if(item == "x") {
-                expression[expression.indexOf("x")] = expression[expression.indexOf("x")-1]*expression[expression.indexOf("x")+1];
-               // expression.splice(expression.indexOf("x")-1, 1);
-                //expression.splice(expression.indexOf("x")+1, 1);
-            }else if(item == "/") {
-                expression[expression.indexOf("/")] = expression[expression.indexOf("/")-1]/expression[expression.indexOf("/")+1];
-               // expression.splice(expression.indexOf("/")-1, 1);
-               // expression.splice(expression.indexOf("/")+1, 1);
-            }else flag = false;
+    //===== MULTIPLICATION ========================
+    for(i = 0; i < expression.length; i++) {
+        if(expression[i] == "x") {
+            expression[i] = expression[i-1]*expression[i+1];
+            expression[i-1] = "";
+            expression[i+1] = "";
         }
-        )*/
-        let a = 0;
-        expression[expression.indexOf("x")] = expression[expression.indexOf("x")-1]*expression[expression.indexOf("x")+1];
-        a = expression.indexOf("x");
-        expression.splice(a-1, 1);
-        expression.splice(a+1, 1);
-        if(expression.indexOf("x") == -1) flag = false;
-
+    }
+    do {
+        if(expression.indexOf("") == -1) {
+            flag = false;
+        }else {
+            expression.splice(expression.indexOf(""), 1);
+        }
     }while(flag)
+    flag = true;
+    //=================================
+
+    //===== DIVISION ==================
+    for(i = 0; i < expression.length; i++) {
+        if(expression[i] == "/") {
+            expression[i] = expression[i-1]/expression[i+1];
+            expression[i-1] = "";
+            expression[i+1] = "";
+        }
+    }
+    do {
+        if(expression.indexOf("") == -1) {
+            flag = false;
+        }else {
+            expression.splice(expression.indexOf(""), 1);
+        }
+    }while(flag)
+    //=================================
+
+    //===== SUM AND SUBSTRACTION ======
+    for(i = 0; i < expression.length; i++) {
+        switch(expression[i]) {
+            case "+":
+                if(i == 1) {
+                    result = expression[i-1]*1+expression[i+1]*1;
+                }else {
+                    result += expression[i+1]*1;
+                }
+                break;
+
+            case "-":
+                if(i == 1) {
+                    result = expression[i-1]*1-expression[i+1]*1;
+                }else {
+                    result -= expression[i+1]*1;
+                }
+                break;
+
+            default:
+                break;
+        }
+        
+    }
+    //=================================
 
     console.log(expression);
+    console.log(result);
+    // FALTA ARREGLAR LO DE LA MULTILICACION Y DIVISION (TAL COMO ESTA EN LA EXPRESSION)
+    
 }
 //==============================================
