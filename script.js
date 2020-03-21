@@ -72,45 +72,53 @@ function showResult() {
         }
     }
     expression.push(aux);
-
-    for(i = 0; i < expression.length; i++) { // loop to show if the input expression is invalid
-        if(expression[i] == "") return console.log("Syntax error");
-    }
     console.log(expression);
 
-    //===== MULTIPLICATION ========================
-    for(i = 0; i < expression.length; i++) {
-        if(expression[i] == "x") {
-            expression[i] = expression[i-1]*expression[i+1];
-            expression[i-1] = "";
-            expression[i+1] = "";
-        }
-    }
-    do {
-        if(expression.indexOf("") == -1) {
-            flag = false;
-        }else {
-            expression.splice(expression.indexOf(""), 1);
-        }
-    }while(flag)
-    flag = true;
-    //=================================
+    if(expression.includes("")) return console.log("Syntax error");
+    console.log(expression);
 
-    //===== DIVISION ==================
-    for(i = 0; i < expression.length; i++) {
-        if(expression[i] == "/") {
-            expression[i] = expression[i-1]/expression[i+1];
-            expression[i-1] = "";
-            expression[i+1] = "";
-        }
-    }
+    //===== MULTIPLICATION AND DIVISION ========================
+    let cont = 0;
     do {
-        if(expression.indexOf("") == -1) {
-            flag = false;
-        }else {
-            expression.splice(expression.indexOf(""), 1);
+        switch(expression[cont]) {
+            case "x":
+                expression[cont] = expression[cont-1]*expression[cont+1];
+                expression[cont-1] = "";
+                expression[cont+1] = "";
+                do {
+                    if(expression.indexOf("") == -1) {
+                        flag = false;
+                    }else {
+                        expression.splice(expression.indexOf(""), 1);
+                    }
+                }while(flag)
+                flag = true;
+                cont = 0;
+                break;
+
+            case "/":
+                expression[cont] = expression[cont-1]/expression[cont+1];
+                expression[cont-1] = "";
+                expression[cont+1] = "";
+                do {
+                    if(expression.indexOf("") == -1) {
+                        flag = false;
+                    }else {
+                        expression.splice(expression.indexOf(""), 1);
+                    }
+                }while(flag)
+                flag = true;
+                cont = 0;
+            
+            default:
+                cont++;
+                break;
         }
-    }while(flag)
+    }while(cont < expression.length)
+    console.log(expression);
+    if(expression.includes(Infinity)) return console.log("Math error");
+    if(expression.includes(NaN)) return console.log("Syntax error");
+    flag = true;
     //=================================
 
     //===== SUM AND SUBSTRACTION ======
@@ -134,14 +142,12 @@ function showResult() {
 
             default:
                 break;
-        }
-        
+        }   
     }
+    if(isNaN(result)) return console.log("Syntax error");
     //=================================
 
     console.log(expression);
-    console.log(result);
-    // FALTA ARREGLAR LO DE LA MULTILICACION Y DIVISION (TAL COMO ESTA EN LA EXPRESSION)
-    
+    console.log(result);   
 }
 //==============================================
