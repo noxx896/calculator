@@ -1,5 +1,6 @@
 let operation = "";
 let screen = document.getElementById("screen");
+let screen2 = document.getElementById("screen2");
 
 
 //===== NUMBERS =================================
@@ -52,6 +53,7 @@ function saveNumbers(a) {
 function clearAll() {
     operation = "";
     screen.textContent = "";
+    screen2.textContent = "";
 }
 function deleteNumber() {
     operation = operation.slice(0, -1);
@@ -74,7 +76,7 @@ function showResult() {
     expression.push(aux);
     console.log(expression);
 
-    if(expression.includes("")) return console.log("Syntax error");
+    if(expression.includes("")) return screen2.textContent = "Syntax error";
     console.log(expression);
 
     //===== MULTIPLICATION AND DIVISION ========================
@@ -116,8 +118,9 @@ function showResult() {
         }
     }while(cont < expression.length)
     console.log(expression);
-    if(expression.includes(Infinity)) return console.log("Math error");
-    if(expression.includes(NaN)) return console.log("Syntax error");
+    if(expression.includes(Infinity)) return screen2.textContent = "Math error";
+    if(expression.includes(NaN)) return screen2.textContent = "Syntax error";
+    if(expression.length == 1) return screen2.textContent = expression;
     flag = true;
     //=================================
 
@@ -144,10 +147,8 @@ function showResult() {
                 break;
         }   
     }
-    if(isNaN(result)) return console.log("Syntax error");
-    //=================================
-
-    console.log(expression);
-    console.log(result);   
+    if(isNaN(result)) return screen2.textContent = "Syntax error";
+    else return screen2.textContent = result;
+    //================================= 
 }
 //==============================================
